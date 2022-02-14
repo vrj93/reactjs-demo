@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {name, age} from "./person.js";
 import message from './message.js';
-import TwoWheel from './components.js';
+import {goals, TwoWheel} from './components.js';
 
 class Car {
     constructor(name){
@@ -31,4 +31,4 @@ const fruits = ['apple', 'banana', 'orange'];
 const details = [name, age];
 const detailslist = details.map((item) => <p>{item}</p>);
 
-ReactDOM.render(<TwoWheel/>, document.getElementById('root'));
+ReactDOM.render(<TwoWheel isGoal={goals} />, document.getElementById('root'));
