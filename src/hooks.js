@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext, useRef } from "react";
 
 const UserContext = createContext();
 
@@ -14,6 +14,8 @@ function FavoriteColor() {
     const [calculation, setCalculation] = useState(0);
 
     const [text, setText] = useState('John Doe');
+    
+    const inputElement = useRef();
     /////
 
     const updateColor = () => {
@@ -31,6 +33,10 @@ function FavoriteColor() {
     useEffect(() => {
         setCalculation(() => count * 2);
     }, [count]); // <- add the count variable here, setEffect(<function>, <dependency>)
+
+    const focusInput = () => {
+        return inputElement.current.focus();
+    }
 
     return(
         <>
@@ -52,10 +58,14 @@ function FavoriteColor() {
             {/* <p>Count: {count}</p>
             <button onClick={() => setCount((c) => c + 1)}>+</button>
             <p>Calculation: {calculation}</p> */}
+            
             <UserContext.Provider value={text}>
                 <h2>{`Hi, I am ${text}!`}</h2>
                 <Component1 text={text}/>
             </UserContext.Provider>
+
+            <input type='text' ref={inputElement}></input>
+            <button onClick={focusInput}>Focus input</button>
         </>
     );
 }
