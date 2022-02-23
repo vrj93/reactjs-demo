@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {name, age} from "./person.js";
 import message from './message.js';
 import {goals, TwoWheel} from './components.js';
 import FavoriteColor from './hooks.js';
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import Blogs from "./pages/Blogs";
+import Contact from "./pages/Contact";
+import NoPage from "./pages/NoPage";
 
 class Car {
     constructor(name){
@@ -35,6 +41,7 @@ const detailslist = details.map((item) => <p>{item}</p>);
 // ReactDOM.render(<TwoWheel isGoal={goals} />, document.getElementById('root'));
 // ReactDOM.render(<FavoriteColor />, document.getElementById('root'));
 
+//Form
 function MyForm() {
 
     const [inputs, setInputs] = useState({});
@@ -47,7 +54,7 @@ function MyForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        alert(inputs)
+        console.log(inputs)
     }
 
     return (
@@ -77,4 +84,21 @@ function MyForm() {
     );
 }
 
-ReactDOM.render(<MyForm/>, document.getElementById('root'));
+//Routing
+export default function App() {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route>
+                    <Route path='/' element={<Layout/>} />
+                    <Route index element={<Home/>} />
+                    <Route path='blogs' element={<Blogs/>}/>
+                    <Route path='contact' element={<Contact/>} />
+                    <Route path='*' element={<NoPage/>} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
+}
+
+ReactDOM.render(<App/>, document.getElementById('root'));
