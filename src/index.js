@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import ReactDOM from 'react-dom';
 import {name, age} from "./person.js";
 import message from './message.js';
@@ -33,4 +33,48 @@ const details = [name, age];
 const detailslist = details.map((item) => <p>{item}</p>);
 
 // ReactDOM.render(<TwoWheel isGoal={goals} />, document.getElementById('root'));
-ReactDOM.render(<FavoriteColor />, document.getElementById('root'));
+// ReactDOM.render(<FavoriteColor />, document.getElementById('root'));
+
+function MyForm() {
+
+    const [inputs, setInputs] = useState({});
+
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setInputs(values => ({...values, [name] : value}))
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        alert(inputs)
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <label>Enter username:
+                <input 
+                    type='text'
+                    name='username'
+                    value={inputs.username || ''}
+                    onChange={handleChange}
+                />
+            </label>
+            <br></br>
+            <br></br>
+            <label>Enter age:
+                <input 
+                    type='number'
+                    name='age'
+                    value={inputs.age || ''}
+                    onChange={handleChange}
+                />
+            </label>
+            <br></br>
+            <br></br>
+            <input type="submit" />
+        </form>
+    );
+}
+
+ReactDOM.render(<MyForm/>, document.getElementById('root'));
